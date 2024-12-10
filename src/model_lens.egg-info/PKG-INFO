@@ -1,0 +1,184 @@
+Metadata-Version: 2.1
+Name: model-lens
+Version: 0.1.0
+Summary: AI Model Gateway and Usage Tracking Platform
+Author: coTe
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: openai
+Requires-Dist: anthropic
+Requires-Dist: python-dotenv
+Requires-Dist: tiktoken
+
+# Model Lens: AI Provider Interaction Platform
+
+Model Lens is a cutting-edge platform designed to simplify interactions with multiple AI providers. It offers advanced features such as real-time token tracking, precise cost management, and dynamic model selection, making it an essential tool for developers working with AI models.
+
+---
+
+## 🚀 Features
+
+### 🤖 Multi-Provider Support
+- Seamless integration with leading AI providers:
+  - **OpenAI**: Supports GPT-3.5, GPT-4, GPT-4o
+  - **Anthropic**: Supports Claude models
+- Easily extensible to other AI providers.
+
+### 💰 Advanced Cost Management
+- Real-time token usage tracking.
+- Accurate cost calculations per provider.
+- Flexible and up-to-date pricing management for supported models.
+
+### 🔍 Flexible Model Selection
+- Dynamic discovery of available models.
+- Auto-selection of the latest models.
+- Access to detailed model metadata, including capabilities and pricing.
+
+### 🛡️ Robust Error Handling
+- Unified response tracking across providers.
+- Comprehensive error reporting.
+- Built-in middleware for standardized error management.
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+- Python 3.8+
+- `pip` (Python package manager)
+
+### Setup Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/model-lens.git
+   cd model-lens
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## ⚙️ Configuration
+
+Create a `.env` file in the project root and populate it with your API keys:
+
+```plaintext
+OPENAI_API_KEY=your_openai_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
+```
+
+---
+
+## 🛠️ Usage
+
+### Generating AI Responses
+
+Here's an example of how to generate responses using the OpenAI provider:
+
+```python
+import asyncio
+from src.providers.openai_provider import OpenAIProvider
+from src.utils.config import Config
+
+async def main():
+    # Load configuration
+    config = Config()
+
+    # Initialize OpenAI Provider
+    openai_provider = OpenAIProvider(
+        api_key=config.openai_api_key,
+        model="gpt-4o"
+    )
+
+    # Generate response
+    response = await openai_provider.generate("Explain AI")
+    print(f"Response: {response.response}")
+    print(f"Total Tokens: {response.total_tokens}")
+    print(f"Cost: ${response.cost}")
+
+asyncio.run(main())
+```
+
+### Token Tracking
+
+Track token usage and retrieve total token counts:
+
+```python
+from src.core.token_tracker import TokenTracker
+
+# Track token usage
+token_tracker = TokenTracker()
+token_tracker.track_tokens(
+    provider="openai",
+    input_tokens=50,
+    output_tokens=100
+)
+
+# Get total tokens
+total_tokens = token_tracker.get_total_tokens()
+print(f"Total Tokens Used: {total_tokens}")
+```
+
+---
+
+## 🌐 API Endpoints
+
+### Providers
+- `POST /providers/generate`: Generate AI responses across supported providers.
+- `GET /providers/models`: Retrieve a list of available models.
+
+### Tokens
+- `GET /tokens/total`: Retrieve total token usage.
+- `GET /tokens/usage-log`: Retrieve a detailed log of token usage.
+
+---
+
+## 👩‍💻 Contributing
+
+We welcome contributions! Follow these steps to contribute:
+
+1. **Fork** the repository.
+2. **Create** your feature branch:
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+3. **Commit** your changes:
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+4. **Push** to the branch:
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+5. **Open** a Pull Request.
+
+<!-- ---
+
+## 📜 License
+
+Model Lens is distributed under the MIT License. See the `LICENSE` file for more details.
+
+---
+
+## 💡 About
+
+Model Lens is designed to simplify AI interactions and provide developers with the tools they need for seamless integration, robust error handling, and cost-efficient operations.
+
+For questions or feedback, feel free to open an issue or reach out via [GitHub Issues](https://github.com/yourusername/model-lens/issues).
+
+---
+
+## 🔗 Contact
+
+- GitHub: [yourusername](https://github.com/yourusername)
+- Email: [youremail@example.com](mailto:youremail@example.com) -->
